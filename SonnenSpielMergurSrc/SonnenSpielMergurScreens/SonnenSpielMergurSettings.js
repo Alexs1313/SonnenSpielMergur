@@ -89,7 +89,11 @@ const SonnenSpielMergurSettings = () => {
         <View style={{ justifyContent: 'flex-end', flex: 1, marginBottom: 20 }}>
           <TouchableOpacity
             style={styles.shareBtn}
-            onPress={() => Linking.openURL('')}
+            onPress={() =>
+              Linking.openURL(
+                'https://apps.apple.com/us/app/sonnen-spiel-mergur/id6755956807',
+              )
+            }
             activeOpacity={0.7}
           >
             <LinearGradient
