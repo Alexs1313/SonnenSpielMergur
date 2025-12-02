@@ -25,9 +25,14 @@ const SonnenSpielMergurSaved = () => {
     <SonnenSpielMergurLayout>
       <View style={styles.spielMergurContainer}>
         <View style={styles.spielMergurHeader}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={require('../../assets/images/spielerguback.png')} />
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Image
+                source={require('../../assets/images/spielerguback.png')}
+              />
+            </TouchableOpacity>
+            <Text style={styles.title}>Saved</Text>
+          </View>
         </View>
 
         {spielMergurSavedLocations.length === 0 && (
@@ -67,6 +72,11 @@ const styles = StyleSheet.create({
   spielMergurContainer: {
     padding: 30,
     paddingTop: 80,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#fff',
   },
   spielMergurHeader: {
     flexDirection: 'row',

@@ -5,6 +5,8 @@ import SonnenSpielMergurSettings from '../SonnenSpielMergurScreens/SonnenSpielMe
 import SonnenSpielMergurLocations from '../SonnenSpielMergurScreens/SonnenSpielMergurLocations';
 import SonnenSpielMergurCardDetails from '../SonnenSpielMergurScreens/SonnenSpielMergurCardDetails';
 import SonnenSpielMergurSaved from '../SonnenSpielMergurScreens/SonnenSpielMergurSaved';
+import SonnenSpielMergurBlog from '../SonnenSpielMergurScreens/SonnenSpielMergurBlog';
+import SonnenSpielMergurBlogDetails from '../SonnenSpielMergurScreens/SonnenSpielMergurBlogDetails';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +36,14 @@ const SonnenSpielMergurStack = () => {
       <Stack.Screen
         name="SonnenSpielMergurSaved"
         component={SonnenSpielMergurSaved}
+      />
+      <Stack.Screen
+        name="SonnenSpielMergurBlog"
+        component={SonnenSpielMergurBlog}
+      />
+      <Stack.Screen
+        name="SonnenSpielMergurBlogDetails"
+        component={SonnenSpielMergurBlogDetails}
       />
     </Stack.Navigator>
   );

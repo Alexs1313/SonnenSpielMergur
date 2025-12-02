@@ -190,7 +190,7 @@ const SonnenSpielMergurMain = () => {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => navigation.navigate('SonnenSpielMergurLocations')}
-            style={{ width: '72%', height: 60 }}
+            style={{ width: '52%', height: 60 }}
           >
             <LinearGradient
               colors={['#F8AA03', '#FABD07', '#FC9F00']}
@@ -199,7 +199,19 @@ const SonnenSpielMergurMain = () => {
               <Text style={styles.spielMergurButtonText}>Start test</Text>
             </LinearGradient>
           </TouchableOpacity>
-
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('SonnenSpielMergurBlog')}
+          >
+            <ImageBackground
+              style={styles.spielMergurFrame}
+              source={require('../../assets/images/spielergurframe.png')}
+            >
+              <Image
+                source={require('../../assets/images/spielergublog.png')}
+              />
+            </ImageBackground>
+          </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => navigation.navigate('SonnenSpielMergurSaved')}

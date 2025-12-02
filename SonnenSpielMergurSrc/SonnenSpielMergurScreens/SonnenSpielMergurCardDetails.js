@@ -23,17 +23,20 @@ import SonnenSpielMergurLayout from '../SonnenSpielMergurComponents/SonnenSpielM
 const { height } = Dimensions.get('window');
 
 const spielMergurStorageKey = 'spielMergurSavedLocations';
+const spielMergurVisitedKey = 'spielMergurVisitedLocations';
 
 const SonnenSpielMergurCardDetails = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { loc } = route.params;
   const [spielMergurSaved, setSpielMergurSaved] = useState(false);
+  const [spielMergurVisited, setSpielMergurVisited] = useState(false);
   const [spielMergurLat, spielMergurLng] = loc.coords.split(',').map(Number);
 
   useFocusEffect(
     useCallback(() => {
       spielMergurCheckIfSaved();
+      spielMergurCheckIfVisited();
     }, []),
   );
 
@@ -63,6 +66,28 @@ const SonnenSpielMergurCardDetails = () => {
       );
       setSpielMergurSaved(true);
     }
+  };
+
+  const spielMergurCheckIfVisited = async () => {
+    const json = await AsyncStorage.getItem(spielMergurVisitedKey);
+    const arr = json ? JSON.parse(json) : [];
+    const exists = arr.includes(loc.title);
+    setSpielMergurVisited(exists);
+  };
+
+  const spielMergurMarkVisited = async () => {
+    const json = await AsyncStorage.getItem(spielMergurVisitedKey);
+    const arr = json ? JSON.parse(json) : [];
+
+    if (!arr.includes(loc.title)) {
+      const updated = [...arr, loc.title];
+      await AsyncStorage.setItem(
+        spielMergurVisitedKey,
+        JSON.stringify(updated),
+      );
+    }
+
+    setSpielMergurVisited(true);
   };
 
   const spielMergurShare = async () => {
@@ -107,6 +132,27 @@ const SonnenSpielMergurCardDetails = () => {
               <Image
                 source={require('../../assets/images/spielergurshr.png')}
               />
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.spielMergurVisitBtn}
+            activeOpacity={0.7}
+            onPress={spielMergurMarkVisited}
+            disabled={spielMergurVisited}
+          >
+            <LinearGradient
+              colors={['#F8AA03', '#FABD07', '#FC9F00']}
+              style={styles.spielMergurVisitGradient}
+            >
+              <Text
+                style={[
+                  styles.spielMergurVisitText,
+                  spielMergurVisited && { color: '#fff' },
+                ]}
+              >
+                {spielMergurVisited ? 'Visited' : 'Visit'}
+              </Text>
             </LinearGradient>
           </TouchableOpacity>
 
@@ -209,7 +255,7 @@ const styles = StyleSheet.create({
   },
   spielMergurShareBtn: {
     flex: 1,
-    marginRight: 18,
+    marginRight: 12,
     height: 40,
   },
   spielMergurShareGradient: {
@@ -223,6 +269,22 @@ const styles = StyleSheet.create({
   spielMergurShareText: {
     color: '#000',
     fontSize: 20,
+    fontWeight: '700',
+  },
+  spielMergurVisitBtn: {
+    flex: 1,
+    marginRight: 12,
+    height: 40,
+  },
+  spielMergurVisitGradient: {
+    flex: 1,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spielMergurVisitText: {
+    fontSize: 20,
+    color: '#000',
     fontWeight: '700',
   },
   spielMergurSaveFrame: {
