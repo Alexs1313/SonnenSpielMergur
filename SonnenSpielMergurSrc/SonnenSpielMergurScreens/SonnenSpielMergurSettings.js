@@ -4,6 +4,7 @@ import {
   Dimensions,
   Image,
   Linking,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -58,19 +59,27 @@ const SonnenSpielMergurSettings = () => {
           <Text style={styles.spielMergurHeadTitle}>Settings</Text>
         </View>
 
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => toggleSpielMergurMusic(!isEnabledSpielMergurMusic)}
-          style={styles.spielMergurSettingWrapper}
-        >
-          <Text style={styles.spielMergurSubtitle}>Music</Text>
-          {isEnabledSpielMergurMusic ? (
-            <Image source={require('../../assets/images/spielerguon.png')} />
-          ) : (
-            <Image source={require('../../assets/images/spielerguoff.png')} />
-          )}
-        </TouchableOpacity>
-        <View style={styles.spielMergurUnderline} />
+        {Platform.OS === 'ios' && (
+          <>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => toggleSpielMergurMusic(!isEnabledSpielMergurMusic)}
+              style={styles.spielMergurSettingWrapper}
+            >
+              <Text style={styles.spielMergurSubtitle}>Music</Text>
+              {isEnabledSpielMergurMusic ? (
+                <Image
+                  source={require('../../assets/images/spielerguon.png')}
+                />
+              ) : (
+                <Image
+                  source={require('../../assets/images/spielerguoff.png')}
+                />
+              )}
+            </TouchableOpacity>
+            <View style={styles.spielMergurUnderline} />
+          </>
+        )}
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() =>
@@ -86,27 +95,31 @@ const SonnenSpielMergurSettings = () => {
           )}
         </TouchableOpacity>
 
-        <View style={{ justifyContent: 'flex-end', flex: 1, marginBottom: 20 }}>
-          <TouchableOpacity
-            style={styles.shareBtn}
-            onPress={() =>
-              Linking.openURL(
-                'https://apps.apple.com/us/app/sonnen-spiel-mergur/id6755956807',
-              )
-            }
-            activeOpacity={0.7}
+        {Platform.OS === 'ios' && (
+          <View
+            style={{ justifyContent: 'flex-end', flex: 1, marginBottom: 20 }}
           >
-            <LinearGradient
-              colors={['#F8AA03', '#FABD07', '#FC9F00']}
-              style={styles.shareGradient}
+            <TouchableOpacity
+              style={styles.shareBtn}
+              onPress={() =>
+                Linking.openURL(
+                  'https://apps.apple.com/us/app/sonnen-spiel-mergur/id6755956807',
+                )
+              }
+              activeOpacity={0.7}
             >
-              <Text style={styles.shareText}>Share the app</Text>
-              <Image
-                source={require('../../assets/images/spielergurshr.png')}
-              />
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
+              <LinearGradient
+                colors={['#F8AA03', '#FABD07', '#FC9F00']}
+                style={styles.shareGradient}
+              >
+                <Text style={styles.shareText}>Share the app</Text>
+                <Image
+                  source={require('../../assets/images/spielergurshr.png')}
+                />
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </SonnenSpielMergurLayout>
   );

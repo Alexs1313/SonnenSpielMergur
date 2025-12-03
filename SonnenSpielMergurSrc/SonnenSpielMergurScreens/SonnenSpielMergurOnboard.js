@@ -6,6 +6,7 @@ import {
   Easing,
   Image,
   ImageBackground,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -48,22 +49,36 @@ const SonnenSpielMergurOnboard = () => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    let timer;
+
+    if (Platform.OS === 'ios') {
+      timer = setTimeout(() => {
+        setIsLoading(true);
+      }, 3000);
+    } else {
+      timer = setTimeout(() => {
+        setIsLoading(true);
+      }, 2000);
+    }
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <SonnenSpielMergurLayout>
-      {isLoading ? (
+      {!isLoading ? (
         <View style={styles.spielMergurWelcContainer}>
-          <Image
-            source={require('../../assets/images/spielergurwelcloader.png')}
-          />
-          {showBestTrainWelcomeText && (
+          {Platform.OS === 'ios' ? (
+            <Image
+              source={require('../../assets/images/spielergurwelcloader.png')}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/andricon.png')}
+              style={{ width: 300, height: 300, borderRadius: 22 }}
+            />
+          )}
+          {showBestTrainWelcomeText && Platform.OS === 'ios' && (
             <Animated.View
               style={{
                 opacity: fadeAnim,
@@ -104,9 +119,27 @@ const SonnenSpielMergurOnboard = () => {
                 'Save, Explore, Personalize'}
             </Text>
             {currSpieleMergurOnboardIndex === 0 && (
-              <Image
-                source={require('../../assets/images/spielerguronlogo.png')}
-              />
+              <>
+                {Platform.OS === 'ios' ? (
+                  <Image
+                    source={require('../../assets/images/spielerguronlogo.png')}
+                  />
+                ) : (
+                  <Text
+                    style={[
+                      styles.spielMergurTitle,
+                      {
+                        marginTop: 0,
+                        top: -10,
+                        color: '#FFD700',
+                        fontSize: 24,
+                      },
+                    ]}
+                  >
+                    Sonnen Gold Quest
+                  </Text>
+                )}
+              </>
             )}
             <Text style={styles.spielMergurSubtitle}>
               {currSpieleMergurOnboardIndex === 0 &&

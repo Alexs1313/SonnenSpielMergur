@@ -323,7 +323,9 @@ const styles = StyleSheet.create({
   spielMergurIconsRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: 3,
     marginBottom: 23,
+    flexWrap: 'wrap',
   },
 });
 
